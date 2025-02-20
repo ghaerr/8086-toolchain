@@ -23,8 +23,9 @@ work on any recent Linux or MacOS with OpenWatcom v2 installed (source the OW ow
 OpenWatcom environment variables and env.sh from ELKS, or just env.sh from ELKS and wcenv.sh in libc directory of 
 ELKS top-dir, after adjusting the path to OpenWatcom directory).
 
-ELKS source code top directory contains a script called 'copyc86.sh' which copies the toolchain binaries, headers and library to ELKS root fs template and also produces
-an archive.
+ELKS source code top directory contains a script 'buildc86.sh' whcih builds the
+toolchain binaries, and 'copyc86.sh' which copies the toolchain binaries, headers and
+library to ELKS /usr and also produces an archive.
 
 ## Build and Install
 

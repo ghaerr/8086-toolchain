@@ -1467,7 +1467,7 @@ static EXPR *parmlist P2 (const EXPR *, ep, const BLOCK *, block)
 		tp2 = tp_pointer;
 	    }
 #ifndef SYNTAX_CORRECT
-	    if (!is_same_size (tp, tp2)) {
+	    if (lang_option == LANG_KANDR && !is_same_size (tp, tp2)) {
 		message (WARN_PARAMSIZE, pnum, fname);
 	    }
 #endif /* SYNTAX_CORRECT */

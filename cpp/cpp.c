@@ -1255,7 +1255,7 @@ void gen_substrings(char *macname, char *data_str, int arg_count, int is_vararg)
    (void)macname;
 
    len = sizeof(struct arg_store) * arg_count;
-   if (len == 0) len = 1;
+   if (len == 0) len = 1;       /* fix for ELKS libc where malloc(0) returns NULL */
    arg_list = malloc(len);
    if(!arg_list) cfatal("Out of memory for arglist");
    memset(arg_list, 0, len);
