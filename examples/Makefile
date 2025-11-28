@@ -43,14 +43,14 @@ NASMFLAGS=-f as86
 
 #DEFINES+=
 
-PROGS=chess test_cc test show_fonts vgatest paint evtest
+PROGS=chess test_cc test showfont vgatest paint evtest
 
 all: $(PROGS)
 #ifeq "$(TOPDIR)" "/Users/greg/net/elks-gh"
 #	cp -p $(PROGS) $(TOPDIR)/elkscmd/rootfs_template/root
 #endif
 
-show_fonts: show_fonts.o
+showfont: showfont.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 #.PRECIOUS: test.i test.as cprintf.i cprintf.as

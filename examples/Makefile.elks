@@ -45,7 +45,7 @@ LDLIBS=-lc86
 
 ##### End of standardized section #####
 
-PROGS=test_cc vgatest paint evtest chess test show_fonts
+PROGS=test_cc vgatest paint evtest chess test showfont
 
 all: $(PROGS)
 
@@ -58,7 +58,7 @@ test: test.o cprintf.o
 test_cc: test_cc.o
 	$(TIME) $(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-show_fonts: show_fonts.o
+showfont: showfont.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 vgatest: vgatest.o graphics.o vga-4bp.o strtoi.o
