@@ -67,16 +67,16 @@ chess: chess.o
 #.PRECIOUS: vgatest.i vgatest.as graphics.i graphics.as
 vgatest: vgatest.o graphics.o vga-4bp.o strtoi.o
 	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
-	cp vgatest $(TOPDIR)/elkscmd/rootfs_template/root
+	#cp vgatest $(TOPDIR)/elkscmd/rootfs_template/root
 
 paint: paint.o graphics.o vga-4bp.o event.o mouse.o strtoi.o
 	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
-	cp paint $(TOPDIR)/elkscmd/rootfs_template/root
+	#cp paint $(TOPDIR)/elkscmd/rootfs_template/root
 
 #.PRECIOUS: evtest.i evtest.as event.i event.as mouse.i mouse.as
 evtest: evtest.o event.o mouse.o
 	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
-	cp evtest $(TOPDIR)/elkscmd/rootfs_template/root
+	#cp evtest $(TOPDIR)/elkscmd/rootfs_template/root
 
 clean:
 	rm -f *.o *.as *.i *.lst $(PROGS)
