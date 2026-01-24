@@ -16,7 +16,7 @@ C86LIB=/usr/lib
 #C86LIB=$(TOPDIR)/libc
 #BIN=
 
-DEFINES=
+DEFINES=-DDRIVER=1
 #TIME=time
 
 ##### Standardized section of Makefile #####

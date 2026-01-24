@@ -13,7 +13,7 @@ NASM=$(BIN)nasm86
 
 C86LIB=$(TOPDIR)/libc
 INCLUDES=-I$(TOPDIR)/libc/include -I$(TOPDIR)/elks/include -I$(C86LIB)/include/c86
-DEFINES=
+DEFINES=-DDRIVER=1
 
 CPPFLAGS=-0 $(INCLUDES) $(DEFINES)
 CFLAGS=-g -O -bas86 -warn=4 -lang=c99
