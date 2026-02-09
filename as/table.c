@@ -9,7 +9,7 @@
 
 #define hconv(ch) ((unsigned char) (ch) - 0x41)	/* better form for hashing */
 
-#ifdef __WATCOMC__
+#if defined(__WATCOMC__) && defined(__LARGE__)
 /* high speed inlined version of memcmp */
 #define memcmp fmemcmp
 extern int fmemcmp(void __far *s1, void __far *s2, size_t n);
