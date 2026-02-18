@@ -187,7 +187,7 @@ void touch(struct name *np)
 #endif
 }
 
-static void make1(struct name *np, struct line *lp, struct depend *qdp)
+static void make1(struct name *np, struct line *lp, struct depend *qdp, struct depend *adp)
 {
     struct depend *    dp;
     char *p;
@@ -203,10 +203,20 @@ static void make1(struct name *np, struct line *lp, struct depend *qdp)
                 strcat(str1, " ");
             strcat(str1, dp->d_name->n_name);
             qdp = dp->d_next;
-            free((char *)dp);
+            //free((char *)dp);
         }
         setmacro("?", str1, 4);
+        strcpy(str1, "");
+        for (dp = adp; dp; dp = adp)
+        {
+            if (strlen(str1))
+                strcat(str1, " ");
+            strcat(str1, dp->d_name->n_name);
+            adp = dp->d_next;
+            free((char *)dp);
+        }
         setmacro("^", str1, 4);
+
         setmacro("@", np->n_name, 4);
         p = strrchr(np->n_name, '.');
         if (p) *p = 0;
@@ -227,7 +237,7 @@ int make(struct name *np, int level)
 {
     struct depend *    dp;
     struct line *      lp;
-    struct depend *    qdp;
+    struct depend *    qdp, *adp;
     time_t              dtime = 1;
     bool                didsomething = 0;
     int             dynamic = 0;
@@ -253,7 +263,7 @@ int make(struct name *np, int level)
     if (!(np->n_flag & N_TARG) && np->n_time == 0L)
         fatal("Don't know how to make %s", np->n_name);
 
-    for (qdp = (struct depend *)0, lp = np->n_line; lp; lp = lp->l_next)
+    for (adp = qdp = (struct depend *)0, lp = np->n_line; lp; lp = lp->l_next)
     {
         for (dp = lp->l_dep; dp; dp = dp->d_next)
         {
@@ -277,12 +287,13 @@ int make(struct name *np, int level)
             if (np->n_time < dp->d_name->n_time)
                 qdp = newdep(dp->d_name, qdp);
             dtime = max(dtime, dp->d_name->n_time);
+            adp = newdep(dp->d_name, adp);
         }
         if (!quest && (np->n_flag & N_DOUBLE) && (np->n_time < dtime))
         {
-            make1(np, lp, qdp); /* free()'s qdp */
+            make1(np, lp, qdp, adp); /* free()'s qdp, adp */
             dtime = 1;
-            qdp = (struct depend *)0;
+            adp = qdp = (struct depend *)0;
             didsomething++;
         }
     }
@@ -299,7 +310,7 @@ int make(struct name *np, int level)
     }
     else if (np->n_time < dtime && !(np->n_flag & N_DOUBLE))
     {
-        make1(np, (struct line *)0, qdp);   /* free()'s qdp */
+        make1(np, (struct line *)0, qdp, adp);   /* free()'s qdp, adp */
         time(&np->n_time);
     }
     else if (level == 0 && !didsomething)
