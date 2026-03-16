@@ -17,10 +17,16 @@ struct macro *      macrohead;
 static struct macro *getmp(char *name)
 {
     struct macro * rp;
+    char *          p;
+    static struct macro envm;
 
     for (rp = macrohead; rp; rp = rp->m_next)
         if (strcmp(name, rp->m_name) == 0)
             return rp;
+    if ((p = getenv(name)) != NULL) {
+        envm.m_val = p;
+        return &envm;
+    }
     return (struct macro *)0;
 }
 
