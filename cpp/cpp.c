@@ -1268,6 +1268,7 @@ void gen_substrings(char *macname, char *data_str, int arg_count, int is_vararg)
       if (cc+2 >= len) {
 	 len += 20;
 	 arg_list[ac].name = realloc(arg_list[ac].name, len);
+         if(arg_list[ac].name==0) cfatal("Preprocessor out of memory");
       }
       arg_list[ac].name[cc++] = *data_str;
       arg_list[ac].name[cc] = '\0';
